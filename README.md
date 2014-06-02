@@ -1,6 +1,6 @@
 ![Znuny logo](http://znuny.com/assets/logo_small.png)
 
-Download all ticket attachments
+Download ticket or article attachments as zip
 =================
 With this extention you will be able to download all attachments of a single article or of the whole ticket at once.
 
