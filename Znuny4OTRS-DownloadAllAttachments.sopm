@@ -12,6 +12,7 @@
     <Description Lang="en">This package contains the functionality to download all ticket or article attachments as a single zip file.</Description>
     <Description Lang="de">Dieses Paket enthält die Funktionalität um alle Anhänge eines Tickets oder Artikels als zip-Datei herunterzuladen.</Description>
     <PackageRequired Version="1.0.6">Znuny4OTRS-Repo</PackageRequired>
+    <ModuleRequired>Archive::Zip</ModuleRequired>
     <Filelist>
         <File Permission="644" Location="Kernel/Config/Files/Znuny4OTRSDownloadAllAttachments.xml"/>
         <File Permission="644" Location="Kernel/Language/de_Znuny4OTRSDownloadAllAttachments.pm"/>
