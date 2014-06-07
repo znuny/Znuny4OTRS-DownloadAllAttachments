@@ -8,6 +8,7 @@ package Kernel::Modules::AgentTicketDownloadAllAttachments;
 use strict;
 use warnings;
 
+use Encode;
 use Archive::Zip qw( :ERROR_CODES );
 
 sub new {
@@ -20,7 +21,7 @@ sub new {
     $Self->{Debug} = $Param{Debug} || 0;
 
     # check all needed objects
-    for (qw(TicketObject ParamObject LayoutObject ConfigObject LogObject UserObject)) {
+    for (qw(TicketObject ParamObject LayoutObject ConfigObject LogObject EncodeObject)) {
         if ( !$Self->{$_} ) {
             $Self->{LayoutObject}->FatalError( Message => "Got no $_!" );
         }
@@ -131,6 +132,15 @@ sub Run {
                 $AttachmentNames{ $Filename }++;
             }
 
+            # encode filename and content
+            # otherwise it may break the zip file
+            Encode::_utf8_on( $Filename );
+            $Self->{EncodeObject}->EncodeOutput( \$Filename );
+
+            Encode::_utf8_on( $Attachment{Content} );
+            $Self->{EncodeObject}->EncodeOutput( \$Attachment{Content} );
+
+            # add to zip file
             $Zip->addString( $Attachment{Content}, $Filename );
         }
     }
