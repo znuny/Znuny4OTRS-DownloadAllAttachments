@@ -122,13 +122,23 @@ sub Run {
                 );
             }
 
+            # check if filename is already present in zip archive
+            # to avoid conflicts add ' (*counter*)' suffix to filename
             my $Filename = $Attachment{Filename};
             if ( !$AttachmentNames{ $Filename } ) {
                 $AttachmentNames{ $Filename } = 1;
             }
             else {
+                # add before file extension
                 $Filename =~ s{(\.)([^\.]+)\z}{ ($AttachmentNames{ $Filename })$1$2}xms;
 
+                # check if the suffix was added correctly
+                # otherwise add it to the end
+                if ( $Filename eq $Attachment{Filename} ) {
+                    $Filename .= ' ($AttachmentNames{ $Filename })';
+                }
+
+                # increase counter for this filename
                 $AttachmentNames{ $Filename }++;
             }
 
