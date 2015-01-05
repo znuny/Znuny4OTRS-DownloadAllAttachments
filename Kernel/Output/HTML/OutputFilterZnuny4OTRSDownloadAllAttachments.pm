@@ -24,12 +24,12 @@ sub Run {
     my $LinkHTML = <<'HTML';
             <div class="AttachmentElement">
                 <h3 style="text-align: center;">
-                    <a target="_blank" href="$Env{"Baselink"}Action=AgentTicketDownloadAllAttachments;TicketID=$LQData{"TicketID"};ArticleID=$LQData{"ArticleID"}">$Text{"Download all (.zip)"}</a>
+                    <a target="_blank" href="[% Env("Baselink") %]Action=AgentTicketDownloadAllAttachments;ArticleID=[% Data.ArticleID| uri %]">[% Translate("Download all \(zip\)", "String") | html %]</a>
                 </h3>
             </div>
 HTML
 
-    ${ $Param{Data} } =~ s{(<!-- \s+ dtl:block:TreeItemAttachmentItem \s+ -->)}{$LinkHTML$1}xms;
+    ${ $Param{Data} } =~ s/(\<div class="Attachment InnerContent"\>)/$LinkHTML$1/ms;
 
     return 1;
 }

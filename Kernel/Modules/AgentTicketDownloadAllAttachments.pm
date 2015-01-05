@@ -10,6 +10,7 @@ use warnings;
 
 use Encode;
 use Archive::Zip qw( :ERROR_CODES );
+use Kernel::System::FileTemp;
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -39,18 +40,33 @@ sub Run {
         $GetParam{ $Param } = $Self->{ParamObject}->GetParam( Param => $Param );
     }
 
-    if ( !$GetParam{TicketID} ) {
+    if ( !$GetParam{ArticleID} ) {
         $Self->{LayoutObject}->FatalError(
-            Message => "Need TicketID!",
+            Message => "Need ArticleID!",
         );
     }
 
+    my %Article = $Self->{TicketObject}->ArticleGet(
+        ArticleID     => $GetParam{ArticleID},
+        DynamicFields => 0,
+        UserID        => $Self->{UserID},
+    );
+
+    if ( !$Article{TicketID} ) {
+        $Self->{LogObject}->Log(
+            Message  => "No TicketID for ArticleID ($Self->{ArticleID})!",
+            Priority => 'error',
+        );
+        return $Self->{LayoutObject}->ErrorScreen();
+    }
+    my $TicketID = $Article{TicketID};
+
     my @ArticleIDs = $Self->{TicketObject}->ArticleIndex(
-        TicketID => $GetParam{TicketID},
+        TicketID => $TicketID,
     );
 
     my $TicketNumber = $Self->{TicketObject}->TicketNumberLookup(
-        TicketID => $GetParam{TicketID},
+        TicketID => $TicketID,
         UserID   => $Self->{UserID},
     );
 
@@ -62,7 +78,7 @@ sub Run {
         if ( !scalar grep { $GetParam{ArticleID} eq $_ } @ArticleIDs ) {
 
             $Self->{LayoutObject}->FatalError(
-                Message => "Can't find ArticleID '$GetParam{ArticleID}' of ticket with TicketID '$GetParam{TicketID}'!",
+                Message => "Can't find ArticleID '$GetParam{ArticleID}' of ticket with TicketID '$TicketID'!",
             );
         }
 

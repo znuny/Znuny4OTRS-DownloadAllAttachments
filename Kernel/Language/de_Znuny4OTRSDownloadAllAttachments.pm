@@ -1,13 +1,13 @@
 # --
 # Kernel/Language/de_Znuny4OTRSDownloadAllAttachments.pm - the German translation of the texts of Znuny4OTRSDownloadAllAttachments
-# Copyright (C) 2013 Znuny GmbH, http://znuny.com/
+# Copyright (C) 2015 Znuny GmbH, http://znuny.com/
 # --
 
 package Kernel::Language::de_Znuny4OTRSDownloadAllAttachments;
 
 use strict;
 use warnings;
-
+use utf8;
 sub Data {
     my $Self = shift;
 
