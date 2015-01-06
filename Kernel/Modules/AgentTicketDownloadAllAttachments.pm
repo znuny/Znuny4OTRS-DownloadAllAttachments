@@ -40,26 +40,35 @@ sub Run {
         $GetParam{ $Param } = $Self->{ParamObject}->GetParam( Param => $Param );
     }
 
-    if ( !$GetParam{ArticleID} ) {
+    if ( !$GetParam{TicketID}&&!$GetParam{ArticleID}) {
         $Self->{LayoutObject}->FatalError(
-            Message => "Need ArticleID!",
+            Message => "Need TicketID or ArticleID!",
         );
     }
 
-    my %Article = $Self->{TicketObject}->ArticleGet(
-        ArticleID     => $GetParam{ArticleID},
-        DynamicFields => 0,
-        UserID        => $Self->{UserID},
-    );
+    my %Article;
+    my $TicketID;
+    #Article ID passed, but no TicketID. Use this API call to get the TicketID
+    if($GetParam{ArticleID}&&!$GetParam{TicketID}){
+        %Article = $Self->{TicketObject}->ArticleGet(
+            ArticleID     => $GetParam{ArticleID},
+            DynamicFields => 0,
+            UserID        => $Self->{UserID},
+        );
+        $TicketID = $Article{TicketID};
+    }else{
+        $TicketID = $GetParam{TicketID};
+    }
 
-    if ( !$Article{TicketID} ) {
+    # Found no Article ID and no Ticket ID was passed to the Method.
+    # Throw an error.
+    if ( !$Article{TicketID}&&!$GetParam{TicketID} ) {
         $Self->{LogObject}->Log(
             Message  => "No TicketID for ArticleID ($Self->{ArticleID})!",
             Priority => 'error',
         );
         return $Self->{LayoutObject}->ErrorScreen();
     }
-    my $TicketID = $Article{TicketID};
 
     my @ArticleIDs = $Self->{TicketObject}->ArticleIndex(
         TicketID => $TicketID,
