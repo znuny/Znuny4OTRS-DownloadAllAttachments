@@ -40,7 +40,10 @@ sub Run {
         $GetParam{ $Param } = $Self->{ParamObject}->GetParam( Param => $Param );
     }
 
-    if ( !$GetParam{TicketID}&&!$GetParam{ArticleID}) {
+    if (
+        !$GetParam{TicketID}
+        && !$GetParam{ArticleID}
+    ) {
         $Self->{LayoutObject}->FatalError(
             Message => "Need TicketID or ArticleID!",
         );
@@ -49,7 +52,10 @@ sub Run {
     my %Article;
     my $TicketID;
     #Article ID passed, but no TicketID. Use this API call to get the TicketID
-    if($GetParam{ArticleID}&&!$GetParam{TicketID}){
+    if(
+        $GetParam{ArticleID}
+        && !$GetParam{TicketID}
+    ){
         %Article = $Self->{TicketObject}->ArticleGet(
             ArticleID     => $GetParam{ArticleID},
             DynamicFields => 0,
@@ -62,7 +68,10 @@ sub Run {
 
     # Found no Article ID and no Ticket ID was passed to the Method.
     # Throw an error.
-    if ( !$Article{TicketID}&&!$GetParam{TicketID} ) {
+    if (
+        !$Article{TicketID}
+        && !$GetParam{TicketID}
+    ) {
         $Self->{LogObject}->Log(
             Message  => "No TicketID for ArticleID ($Self->{ArticleID})!",
             Priority => 'error',
@@ -194,7 +203,6 @@ sub Run {
         close $ZipFH;
     }
     else {
-
         $Self->{LayoutObject}->FatalError(
             Message  => "Cant write temporary zip file '$Filename': $!!",
         );
