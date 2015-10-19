@@ -122,9 +122,14 @@ sub Run {
                 );
             }
 
+            my $Filename = $Attachment{Filename};
+
+            # remove bad chars like e.g. newline from filename
+            $Filename =~ s{\n}{ }xmsg;
+            $Filename =~ s{\r}{ }xmsg;
+
             # check if filename is already present in zip archive
             # to avoid conflicts add ' (*counter*)' suffix to filename
-            my $Filename = $Attachment{Filename};
             if ( !$AttachmentNames{ $Filename } ) {
                 $AttachmentNames{ $Filename } = 1;
             }
