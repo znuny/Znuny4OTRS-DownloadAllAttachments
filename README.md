@@ -3,13 +3,13 @@
 Download ticket or article attachments as zip
 =================
 
-With this extention you will be able to download all attachments of a single article or of the whole ticket at once.
+With this extension you will be able to download all attachments of a single article or of the whole ticket at once.
 
 **Prerequisites**
 
 - [Znuny4OTRS-Repo](http://znuny.com/#!/znuny4otrs)
 
-- OTRS 5.0
+- OTRS 5
 
 **Installation**
 
@@ -31,4 +31,4 @@ Enjoy!
 
  Your Znuny Team!
 
- [http://znuny.com](http://znuny.com)
+ [http://znuny.com](http://znuny.com/)
