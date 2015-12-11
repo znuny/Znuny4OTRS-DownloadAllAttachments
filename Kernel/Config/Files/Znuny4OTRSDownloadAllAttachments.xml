@@ -52,9 +52,9 @@
                 <Hash>
                     <Item Key="Module">Kernel::Output::HTML::OutputFilterZnuny4OTRSDownloadAllAttachments</Item>
                     <Item Key="Templates">
-                    <Hash>
-                        <Item Key="ArticleAttachments">1</Item>
-                    </Hash>
+                        <Hash>
+                            <Item Key="ArticleAttachments">1</Item>
+                        </Hash>
                     </Item>
                 </Hash>
             </Setting>
