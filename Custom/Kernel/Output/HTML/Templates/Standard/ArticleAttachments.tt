@@ -1,0 +1,38 @@
+# --
+# Copyright (C) 2001-2015 OTRS AG, http://otrs.com/
+# Copyright (C) 2012-2015 Znuny GmbH, http://znuny.com/
+# --
+# $origin: https://github.com/OTRS/otrs/blob/0881a676b550d5ed65e2d422ddd3d6fd8da2841d/Kernel/Output/HTML/Templates/Standard/ArticleAttachments.tt
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<a class="Attachment" title="[% Translate("Attachments") | html %]" rel="TicketAttachment[% Data.ArticleID | html %]">
+    ([% Data.Attachments.Files.size | html %])
+</a>
+<div id="TicketAttachment[% Data.ArticleID | html %]" class="AttachmentData Hidden">
+# ---
+# Znuny4OTRS-DownloadAllAttachments
+# ---
+    <div class="AttachmentElement">
+        <h3 style="text-align: center;">
+            <a target="_blank" href="[% Env("Baselink") %]Action=AgentTicketDownloadAllAttachments;ArticleID=[% Data.ArticleID| uri %]">[% Translate("Download all \(zip\)", "String") | html %]</a>
+        </h3>
+    </div>
+# ---
+    <div class="Attachment InnerContent">
+        [% FOREACH File IN Data.Attachments.Files %]
+        <div class="AttachmentElement">
+            <h3>
+# Bugfix for bug#5579 - Spaces in filenames are converted to + characters when downloading in IE.
+# Filename must be escaped with "| html", not "| uri".
+                <a href="[% Env("Baselink") %]Action=AgentTicketAttachment;ArticleID=[% Data.ArticleID | uri %];FileID=[% File.FileID | uri %]" [% File.Target %]>[% File.Filename | html %]</a>
+            </h3>
+            <p>[% File.Filesize | html %]</p>
+        </div>
+            [% LAST IF loop.count() == Data.Attachments.ZoomAttachmentDisplayCount %]
+        [% END %]
+    </div>
+</div>

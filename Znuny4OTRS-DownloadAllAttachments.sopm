@@ -4,8 +4,8 @@
     <Version>1.1.2</Version>
     <ChangeLog Version="1.1.2" Date="2015-12-11 18:51:17 UTC">Tidied.</ChangeLog>
     <ChangeLog Version="1.1.1" Date="2015-10-19 10:10:38 UTC">Fixed bug - Bad chars in filename break some extractors.</ChangeLog>
-    <Framework>4.0.x</Framework>
-    <PackageRequired Version="2.0.18">Znuny4OTRS-Repo</PackageRequired>
+    <Framework>5.0.x</Framework>
+    <PackageRequired Version="3.0.7">Znuny4OTRS-Repo</PackageRequired>
     <ModuleRequired>Archive::Zip</ModuleRequired>
     <Vendor>Znuny GmbH</Vendor>
     <URL>http://znuny.com/</URL>
@@ -13,9 +13,9 @@
     <Description Lang="en">This package contains the functionality to download all ticket or article attachments as a single zip file.</Description>
     <Description Lang="de">Dieses Paket enthält die Funktionalität um alle Anhänge eines Tickets oder Artikels als zip-Datei herunterzuladen.</Description>
     <Filelist>
+        <File Permission="644" Location="Custom/Kernel/Output/HTML/Templates/Standard/ArticleAttachments.tt"/>
         <File Permission="644" Location="Kernel/Config/Files/Znuny4OTRSDownloadAllAttachments.xml"/>
         <File Permission="644" Location="Kernel/Language/de_Znuny4OTRSDownloadAllAttachments.pm"/>
         <File Permission="644" Location="Kernel/Modules/AgentTicketDownloadAllAttachments.pm"/>
-        <File Permission="644" Location="Kernel/Output/HTML/OutputFilterZnuny4OTRSDownloadAllAttachments.pm"/>
     </Filelist>
 </otrs_package>

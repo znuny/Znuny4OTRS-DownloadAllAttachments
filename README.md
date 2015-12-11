@@ -9,7 +9,7 @@ With this extention you will be able to download all attachments of a single art
 
 - [Znuny4OTRS-Repo](http://znuny.com/#!/znuny4otrs)
 
-- OTRS 4.0
+- OTRS 5.0
 
 **Installation**
 

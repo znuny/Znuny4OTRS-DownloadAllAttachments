@@ -1,5 +1,4 @@
 # --
-# Kernel/Modules/AgentTicketDownloadAllAttachments.pm - to download multiple attachments as one zip file
 # Copyright (C) 2012-2015 Znuny GmbH, http://znuny.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
@@ -14,7 +13,15 @@ use warnings;
 
 use Encode;
 use Archive::Zip qw( :ERROR_CODES );
-use Kernel::System::FileTemp;
+
+our @ObjectDependencies = (
+    'Kernel::Output::HTML::Layout',
+    'Kernel::System::Encode',
+    'Kernel::System::FileTemp',
+    'Kernel::System::Log',
+    'Kernel::System::Ticket',
+    'Kernel::System::Web::Request',
+);
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -25,23 +32,22 @@ sub new {
 
     $Self->{Debug} = $Param{Debug} || 0;
 
-    # check all needed objects
-    for (qw(TicketObject ParamObject LayoutObject ConfigObject LogObject EncodeObject)) {
-        if ( !$Self->{$_} ) {
-            $Self->{LayoutObject}->FatalError( Message => "Got no $_!" );
-        }
-    }
-
     return $Self;
 }
 
 sub Run {
     my ( $Self, %Param ) = @_;
 
+    my $ParamObject  = $Kernel::OM->Get('Kernel::System::Web::Request');
+    my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
+    my $TicketObject = $Kernel::OM->Get('Kernel::System::Ticket');
+    my $LogObject    = $Kernel::OM->Get('Kernel::System::Log');
+    my $EncodeObject = $Kernel::OM->Get('Kernel::System::Encode');
+
     my %GetParam;
     for my $Param (qw(TicketID ArticleID Subaction)) {
 
-        $GetParam{$Param} = $Self->{ParamObject}->GetParam( Param => $Param );
+        $GetParam{$Param} = $ParamObject->GetParam( Param => $Param );
     }
 
     if (
@@ -49,7 +55,7 @@ sub Run {
         && !$GetParam{ArticleID}
         )
     {
-        $Self->{LayoutObject}->FatalError(
+        $LayoutObject->FatalError(
             Message => "Need TicketID or ArticleID!",
         );
     }
@@ -63,7 +69,7 @@ sub Run {
         && !$GetParam{TicketID}
         )
     {
-        %Article = $Self->{TicketObject}->ArticleGet(
+        %Article = $TicketObject->ArticleGet(
             ArticleID     => $GetParam{ArticleID},
             DynamicFields => 0,
             UserID        => $Self->{UserID},
@@ -81,18 +87,18 @@ sub Run {
         && !$GetParam{TicketID}
         )
     {
-        $Self->{LogObject}->Log(
+        $LogObject->Log(
             Message  => "No TicketID for ArticleID ($Self->{ArticleID})!",
             Priority => 'error',
         );
-        return $Self->{LayoutObject}->ErrorScreen();
+        return $LayoutObject->ErrorScreen();
     }
 
-    my @ArticleIDs = $Self->{TicketObject}->ArticleIndex(
+    my @ArticleIDs = $TicketObject->ArticleIndex(
         TicketID => $TicketID,
     );
 
-    my $TicketNumber = $Self->{TicketObject}->TicketNumberLookup(
+    my $TicketNumber = $TicketObject->TicketNumberLookup(
         TicketID => $TicketID,
         UserID   => $Self->{UserID},
     );
@@ -104,7 +110,7 @@ sub Run {
 
         if ( !scalar grep { $GetParam{ArticleID} eq $_ } @ArticleIDs ) {
 
-            $Self->{LayoutObject}->FatalError(
+            $LayoutObject->FatalError(
                 Message => "Can't find ArticleID '$GetParam{ArticleID}' of ticket with TicketID '$TicketID'!",
             );
         }
@@ -122,7 +128,7 @@ sub Run {
     my $StripPlainBodyAsAttachment = 1;
 
     # check if rich text is enabled, if not only strip ascii attachments
-    if ( !$Self->{LayoutObject}->{BrowserRichText} ) {
+    if ( !$LayoutObject->{BrowserRichText} ) {
         $StripPlainBodyAsAttachment = 2;
     }
 
@@ -132,18 +138,18 @@ sub Run {
     ARTICLE:
     for my $ArticleID ( sort @ArticleIDs ) {
 
-        my %Article = $Self->{TicketObject}->ArticleGet(
+        my %Article = $TicketObject->ArticleGet(
             ArticleID => $ArticleID,
         );
 
         if ( !%Article ) {
-            $Self->{LayoutObject}->FatalError(
+            $LayoutObject->FatalError(
                 Message => "Error while article with ArticleID '$ArticleID'!",
             );
         }
 
         # get attachment index (without attachments)
-        my %AttachmentIndex = $Self->{TicketObject}->ArticleAttachmentIndex(
+        my %AttachmentIndex = $TicketObject->ArticleAttachmentIndex(
             ArticleID                  => $ArticleID,
             StripPlainBodyAsAttachment => $StripPlainBodyAsAttachment,
             Article                    => \%Article,
@@ -154,14 +160,14 @@ sub Run {
         for my $FileID ( sort keys %AttachmentIndex ) {
 
             # get a attachment
-            my %Attachment = $Self->{TicketObject}->ArticleAttachment(
+            my %Attachment = $TicketObject->ArticleAttachment(
                 ArticleID => $ArticleID,
                 FileID    => $FileID,
                 UserID    => $Self->{UserID},
             );
 
             if ( !%Attachment ) {
-                $Self->{LayoutObject}->FatalError(
+                $LayoutObject->FatalError(
                     Message =>
                         "Error while getting attachment with FileID '$FileID' of article with ArticleID '$ArticleID'!",
                 );
@@ -195,10 +201,10 @@ sub Run {
             # encode filename and content
             # otherwise it may break the zip file
             Encode::_utf8_on($Filename);
-            $Self->{EncodeObject}->EncodeOutput( \$Filename );
+            $EncodeObject->EncodeOutput( \$Filename );
 
             Encode::_utf8_on( $Attachment{Content} );
-            $Self->{EncodeObject}->EncodeOutput( \$Attachment{Content} );
+            $EncodeObject->EncodeOutput( \$Attachment{Content} );
 
             # add to zip file
             $Zip->addString( $Attachment{Content}, $Filename );
@@ -206,20 +212,20 @@ sub Run {
     }
 
     # write tmp file
-    my $FileTempObject = Kernel::System::FileTemp->new( %{$Self} );
+    my $FileTempObject = $Kernel::OM->Get('Kernel::System::FileTemp')->new( %{$Self} );
     my ( $FH, $Filename ) = $FileTempObject->TempFile();
 
     if ( open( my $ZipFH, '>', $Filename ) ) {    ##no critic
 
         if ( $Zip->writeToFileHandle($ZipFH) != AZ_OK ) {    ## nofilter(TidyAll::Plugin::OTRS::Perl::SyntaxCheck)
-            $Self->{LayoutObject}->FatalError(
+            $LayoutObject->FatalError(
                 Message => "Cant write temporary zip file '$Filename': $!!",
             );
         }
         close $ZipFH;
     }
     else {
-        $Self->{LayoutObject}->FatalError(
+        $LayoutObject->FatalError(
             Message => "Cant write temporary zip file '$Filename': $!!",
         );
     }
@@ -232,19 +238,19 @@ sub Run {
         close $ZipFH;
     }
     else {
-        return $Self->{LayoutObject}->FatalError(
+        return $LayoutObject->FatalError(
             Message => "Can't open temporary zip file '$Filename': $!",
         );
     }
 
     if ( !$Content ) {
-        return $Self->{LayoutObject}->FatalError(
+        return $LayoutObject->FatalError(
             Message => "Error while reading from temporary zip file handle!",
         );
     }
 
     # return new page
-    return $Self->{LayoutObject}->Attachment(
+    return $LayoutObject->Attachment(
         Filename    => $ZipFilename . '.zip',
         ContentType => 'application/zip',
         Content     => $Content,
