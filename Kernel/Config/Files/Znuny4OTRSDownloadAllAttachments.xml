@@ -18,7 +18,7 @@
         <SubGroup>Frontend::Agent::Ticket::MenuModule</SubGroup>
         <Setting>
             <Hash>
-                <Item Key="Module">Kernel::Output::HTML::TicketMenuGeneric</Item>
+                <Item Key="Module">Kernel::Output::HTML::TicketMenu::Generic</Item>
                 <Item Key="Name">Download ticket attachments (zip)</Item>
                 <Item Key="Description" Translatable="1">Download all attachments as one zip file</Item>
                 <Item Key="Action"></Item>
@@ -34,7 +34,7 @@
         <SubGroup>Frontend::Agent::Ticket::MenuModulePre</SubGroup>
         <Setting>
             <Hash>
-                <Item Key="Module">Kernel::Output::HTML::TicketMenuGeneric</Item>
+                <Item Key="Module">Kernel::Output::HTML::TicketMenu::Generic</Item>
                 <Item Key="Name">Download ticket attachments (zip)</Item>
                 <Item Key="Description" Translatable="1">Download all attachments as one zip file</Item>
                 <Item Key="Action"></Item>
