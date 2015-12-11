@@ -212,7 +212,7 @@ sub Run {
     }
 
     # write tmp file
-    my $FileTempObject = $Kernel::OM->Get('Kernel::System::FileTemp')->new( %{$Self} );
+    my $FileTempObject = $Kernel::OM->Get('Kernel::System::FileTemp');
     my ( $FH, $Filename ) = $FileTempObject->TempFile();
 
     if ( open( my $ZipFH, '>', $Filename ) ) {    ##no critic
