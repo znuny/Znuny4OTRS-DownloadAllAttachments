@@ -1,7 +1,11 @@
 # --
-# Kernel/Modules/AgentTicketDownloadAllAttachments.pm - to download multiple attachments as one zip file
-# Copyright (C) 2014 Znuny GmbH, http://znuny.com/
+# Copyright (C) 2012-2017 Znuny GmbH, http://znuny.com/
 # --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+## nofilter(TidyAll::Plugin::OTRS::Perl::ModuleUse)
 
 package Kernel::Modules::AgentTicketDownloadAllAttachments;
 
@@ -10,6 +14,7 @@ use warnings;
 
 use Encode;
 use Archive::Zip qw( :ERROR_CODES );
+use Kernel::System::FileTemp;
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -21,10 +26,10 @@ sub new {
     $Self->{Debug} = $Param{Debug} || 0;
 
     # check all needed objects
-    for (qw(TicketObject ParamObject LayoutObject ConfigObject LogObject EncodeObject)) {
-        if ( !$Self->{$_} ) {
-            $Self->{LayoutObject}->FatalError( Message => "Got no $_!" );
-        }
+    NEEDED:
+    for my $Needed (qw(TicketObject ParamObject LayoutObject ConfigObject LogObject EncodeObject)) {
+        next NEEDED if $Self->{$Needed};
+        $Self->{LayoutObject}->FatalError( Message => "Got no $Needed!" );
     }
 
     return $Self;
@@ -34,9 +39,9 @@ sub Run {
     my ( $Self, %Param ) = @_;
 
     my %GetParam;
-    for my $Param ( qw(TicketID ArticleID Subaction) ) {
+    for my $Param (qw(TicketID ArticleID Subaction)) {
 
-        $GetParam{ $Param } = $Self->{ParamObject}->GetParam( Param => $Param );
+        $GetParam{$Param} = $Self->{ParamObject}->GetParam( Param => $Param );
     }
 
     if ( !$GetParam{TicketID} ) {
@@ -54,7 +59,7 @@ sub Run {
         UserID   => $Self->{UserID},
     );
 
-    my $ZipFilename = 'Attachments Ticket '. $TicketNumber;
+    my $ZipFilename = 'Attachments Ticket ' . $TicketNumber;
 
     # validate ArticleID parameter
     if ( $GetParam{ArticleID} ) {
@@ -66,7 +71,7 @@ sub Run {
             );
         }
 
-        $ZipFilename .= ' - ArticleID '. $GetParam{ArticleID};
+        $ZipFilename .= ' - ArticleID ' . $GetParam{ArticleID};
 
         # only use the article requested
         @ArticleIDs = ( $GetParam{ArticleID} );
@@ -84,6 +89,7 @@ sub Run {
     }
 
     my %AttachmentNames;
+
     # collect attachments
     ARTICLE:
     for my $ArticleID ( sort @ArticleIDs ) {
@@ -118,7 +124,8 @@ sub Run {
 
             if ( !%Attachment ) {
                 $Self->{LayoutObject}->FatalError(
-                    Message => "Error while getting attachment with FileID '$FileID' of article with ArticleID '$ArticleID'!",
+                    Message =>
+                        "Error while getting attachment with FileID '$FileID' of article with ArticleID '$ArticleID'!",
                 );
             }
 
@@ -130,8 +137,8 @@ sub Run {
 
             # check if filename is already present in zip archive
             # to avoid conflicts add ' (*counter*)' suffix to filename
-            if ( !$AttachmentNames{ $Filename } ) {
-                $AttachmentNames{ $Filename } = 1;
+            if ( !$AttachmentNames{$Filename} ) {
+                $AttachmentNames{$Filename} = 1;
             }
             else {
                 # add before file extension
@@ -144,12 +151,12 @@ sub Run {
                 }
 
                 # increase counter for this filename
-                $AttachmentNames{ $Filename }++;
+                $AttachmentNames{$Filename}++;
             }
 
             # encode filename and content
             # otherwise it may break the zip file
-            Encode::_utf8_on( $Filename );
+            Encode::_utf8_on($Filename);
             $Self->{EncodeObject}->EncodeOutput( \$Filename );
 
             Encode::_utf8_on( $Attachment{Content} );
@@ -164,11 +171,11 @@ sub Run {
     my $FileTempObject = Kernel::System::FileTemp->new( %{$Self} );
     my ( $FH, $Filename ) = $FileTempObject->TempFile();
 
-    if ( open( my $ZipFH, '>', $Filename ) ) {
+    if ( open( my $ZipFH, '>', $Filename ) ) {    ##no critic
 
-        if ( $Zip->writeToFileHandle( $ZipFH ) != AZ_OK ) {
+        if ( $Zip->writeToFileHandle($ZipFH) != AZ_OK ) {    ## nofilter(TidyAll::Plugin::OTRS::Perl::SyntaxCheck)
             $Self->{LayoutObject}->FatalError(
-                Message  => "Cant write temporary zip file '$Filename': $!!",
+                Message => "Cant write temporary zip file '$Filename': $!!",
             );
         }
         close $ZipFH;
@@ -176,12 +183,12 @@ sub Run {
     else {
 
         $Self->{LayoutObject}->FatalError(
-            Message  => "Cant write temporary zip file '$Filename': $!!",
+            Message => "Cant write temporary zip file '$Filename': $!!",
         );
     }
 
     my $Content = '';
-    if ( open( my $ZipFH, "<", $Filename ) ) {
+    if ( open( my $ZipFH, "<", $Filename ) ) {    ##no critic
         while (<$ZipFH>) {
             $Content .= $_;
         }
@@ -201,7 +208,7 @@ sub Run {
 
     # return new page
     return $Self->{LayoutObject}->Attachment(
-        Filename    => $ZipFilename .'.zip',
+        Filename    => $ZipFilename . '.zip',
         ContentType => 'application/zip',
         Content     => $Content,
         NoCache     => 1,
