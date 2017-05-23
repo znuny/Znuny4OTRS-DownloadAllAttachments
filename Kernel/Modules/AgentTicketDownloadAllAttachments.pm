@@ -1,6 +1,5 @@
 # --
-# Kernel/Modules/AgentTicketDownloadAllAttachments.pm - to download multiple attachments as one zip file
-# Copyright (C) 2012-2015 Znuny GmbH, http://znuny.com/
+# Copyright (C) 2012-2017 Znuny GmbH, http://znuny.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -26,8 +25,8 @@ sub new {
     $Self->{Debug} = $Param{Debug} || 0;
 
     # check all needed objects
-    for (qw(TicketObject ParamObject LayoutObject ConfigObject LogObject EncodeObject)) {
-        if ( !$Self->{$_} ) {
+    for my $Object (qw(TicketObject ParamObject LayoutObject ConfigObject LogObject EncodeObject)) {
+        if ( !$Self->{$Object} ) {
             $Self->{LayoutObject}->FatalError( Message => "Got no $_!" );
         }
     }
@@ -185,7 +184,7 @@ sub Run {
                 # check if the suffix was added correctly
                 # otherwise add it to the end
                 if ( $Filename eq $Attachment{Filename} ) {
-                    $Filename .= ' ($AttachmentNames{ $Filename })';
+                    $Filename .= " ($AttachmentNames{ $Filename })";
                 }
 
                 # increase counter for this filename
