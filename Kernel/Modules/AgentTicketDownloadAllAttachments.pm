@@ -191,7 +191,7 @@ sub Run {
                 # check if the suffix was added correctly
                 # otherwise add it to the end
                 if ( $Filename eq $Attachment{Filename} ) {
-                    $Filename .= ' ($AttachmentNames{ $Filename })';
+                    $Filename .= " ($AttachmentNames{ $Filename })";
                 }
 
                 # increase counter for this filename
