@@ -1,0 +1,9 @@
+image: otrs5ci
+
+stages:
+  - deploy
+
+job_deploy_otrs_Znuny4OTRSDownloadAllAttachments:
+  stage: deploy
+  script:
+    - sh /sync_repo.sh git@github.com:znuny/Znuny4OTRS-DownloadAllAttachments.git
