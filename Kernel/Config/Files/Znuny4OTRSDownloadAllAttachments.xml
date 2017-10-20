@@ -28,14 +28,14 @@
             </Hash>
         </Setting>
     </ConfigItem>
-    <ConfigItem Name="Ticket::Frontend::PreMenuModule###442-DownloadAllAttachments" Required="0" Valid="1">
+    <ConfigItem Name="Ticket::Frontend::PreMenuModule###990-DownloadAllAttachments" Required="0" Valid="1">
         <Description Translatable="1">This configuration registers a link in the ticket menu to the ticket overviews of the agent interface to download all ticket attachments.</Description>
         <Group>Znuny4OTRS-DownloadAllAttachments</Group>
         <SubGroup>Frontend::Agent::Ticket::MenuModulePre</SubGroup>
         <Setting>
             <Hash>
                 <Item Key="Module">Kernel::Output::HTML::TicketMenu::Generic</Item>
-                <Item Key="Name">Download ticket attachments (zip)</Item>
+                <Item Key="Name">Download ticket attachments</Item>
                 <Item Key="Description" Translatable="1">Download all attachments as one zip file</Item>
                 <Item Key="Action"></Item>
                 <Item Key="Link">Action=AgentTicketDownloadAllAttachments;TicketID=[% Data.TicketID | html %];RedirectToSearch=1;</Item>
