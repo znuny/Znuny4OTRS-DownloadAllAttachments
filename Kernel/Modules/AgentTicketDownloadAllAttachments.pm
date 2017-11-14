@@ -20,6 +20,7 @@ our @ObjectDependencies = (
     'Kernel::System::FileTemp',
     'Kernel::System::Log',
     'Kernel::System::Ticket',
+    'Kernel::System::Ticket::Article',
     'Kernel::System::Web::Request',
 );
 
@@ -38,11 +39,13 @@ sub new {
 sub Run {
     my ( $Self, %Param ) = @_;
 
-    my $ParamObject  = $Kernel::OM->Get('Kernel::System::Web::Request');
-    my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
-    my $TicketObject = $Kernel::OM->Get('Kernel::System::Ticket');
-    my $LogObject    = $Kernel::OM->Get('Kernel::System::Log');
-    my $EncodeObject = $Kernel::OM->Get('Kernel::System::Encode');
+    my $ArticleObject  = $Kernel::OM->Get('Kernel::System::Ticket::Article');
+    my $EncodeObject   = $Kernel::OM->Get('Kernel::System::Encode');
+    my $FileTempObject = $Kernel::OM->Get('Kernel::System::FileTemp');
+    my $LayoutObject   = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
+    my $LogObject      = $Kernel::OM->Get('Kernel::System::Log');
+    my $ParamObject    = $Kernel::OM->Get('Kernel::System::Web::Request');
+    my $TicketObject   = $Kernel::OM->Get('Kernel::System::Ticket');
 
     my %GetParam;
     for my $Param (qw(TicketID ArticleID Subaction)) {
@@ -60,33 +63,11 @@ sub Run {
         );
     }
 
-    my %Article;
-    my $TicketID;
-
-    #Article ID passed, but no TicketID. Use this API call to get the TicketID
-    if (
-        $GetParam{ArticleID}
-        && !$GetParam{TicketID}
-        )
-    {
-        %Article = $TicketObject->ArticleGet(
-            ArticleID     => $GetParam{ArticleID},
-            DynamicFields => 0,
-            UserID        => $Self->{UserID},
-        );
-        $TicketID = $Article{TicketID};
-    }
-    else {
-        $TicketID = $GetParam{TicketID};
-    }
+    my $TicketID = $GetParam{TicketID};
 
     # Found no Article ID and no Ticket ID was passed to the Method.
     # Throw an error.
-    if (
-        !$Article{TicketID}
-        && !$GetParam{TicketID}
-        )
-    {
+    if ( !$TicketID ) {
         $LogObject->Log(
             Message  => "No TicketID for ArticleID ($Self->{ArticleID})!",
             Priority => 'error',
@@ -94,7 +75,7 @@ sub Run {
         return $LayoutObject->ErrorScreen();
     }
 
-    my @ArticleIDs = $TicketObject->ArticleIndex(
+    my @ArticleIDs = $ArticleObject->ArticleIndex(
         TicketID => $TicketID,
     );
 
@@ -125,11 +106,18 @@ sub Run {
     my $Zip = Archive::Zip->new();
 
     # strip html and ascii attachments of content
-    my $StripPlainBodyAsAttachment = 1;
-
-    # check if rich text is enabled, if not only strip ascii attachments
-    if ( !$LayoutObject->{BrowserRichText} ) {
-        $StripPlainBodyAsAttachment = 2;
+    my %StripParams;
+    if ( $LayoutObject->{BrowserRichText} ) {
+        $StripParams{ExcludePlainText} = 1;
+        $StripParams{ExcludeHTMLBody}  = 1;
+        $StripParams{ExcludeInline}    = 1;
+        $StripParams{OnlyHTMLBody}     = 0;
+    }
+    else {
+        $StripParams{ExcludePlainText} = 1;
+        $StripParams{ExcludeHTMLBody}  = 0;
+        $StripParams{ExcludeInline}    = 0;
+        $StripParams{OnlyHTMLBody}     = 0;
     }
 
     my %AttachmentNames;
@@ -138,7 +126,8 @@ sub Run {
     ARTICLE:
     for my $ArticleID ( sort @ArticleIDs ) {
 
-        my %Article = $TicketObject->ArticleGet(
+        my %Article = $ArticleObject->ArticleGet(
+            TicketID  => $TicketID,
             ArticleID => $ArticleID,
         );
 
@@ -149,18 +138,19 @@ sub Run {
         }
 
         # get attachment index (without attachments)
-        my %AttachmentIndex = $TicketObject->ArticleAttachmentIndex(
-            ArticleID                  => $ArticleID,
-            StripPlainBodyAsAttachment => $StripPlainBodyAsAttachment,
-            Article                    => \%Article,
-            UserID                     => $Self->{UserID},
+        my %AttachmentIndex = $ArticleObject->ArticleAttachmentIndex(
+            TicketID  => $TicketID,
+            ArticleID => $ArticleID,
+            UserID    => $Self->{UserID},
+            %StripParams,
         );
 
         FILEID:
         for my $FileID ( sort keys %AttachmentIndex ) {
 
             # get a attachment
-            my %Attachment = $TicketObject->ArticleAttachment(
+            my %Attachment = $ArticleObject->ArticleAttachment(
+                TicketID  => $TicketID,
                 ArticleID => $ArticleID,
                 FileID    => $FileID,
                 UserID    => $Self->{UserID},
@@ -212,7 +202,6 @@ sub Run {
     }
 
     # write tmp file
-    my $FileTempObject = $Kernel::OM->Get('Kernel::System::FileTemp');
     my ( $FH, $Filename ) = $FileTempObject->TempFile();
 
     if ( open( my $ZipFH, '>', $Filename ) ) {    ##no critic
