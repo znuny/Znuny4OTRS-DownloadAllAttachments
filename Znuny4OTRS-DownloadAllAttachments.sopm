@@ -20,5 +20,6 @@
         <File Permission="660" Location="Kernel/Config/Files/XML/Znuny4OTRSDownloadAllAttachments.xml"/>
         <File Permission="660" Location="Kernel/Language/de_Znuny4OTRSDownloadAllAttachments.pm"/>
         <File Permission="660" Location="Kernel/Modules/AgentTicketDownloadAllAttachments.pm"/>
+        <File Permission="660" Location="Kernel/Output/HTML/TicketMenu/Znuny4OTRSDownloadAllAttachments.pm"/>
     </Filelist>
 </otrs_package>
