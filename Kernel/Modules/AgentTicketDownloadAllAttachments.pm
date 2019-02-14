@@ -1,5 +1,5 @@
 # --
-# Copyright (C) 2012-2017 Znuny GmbH, http://znuny.com/
+# Copyright (C) 2012-2019 Znuny GmbH, http://znuny.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -24,11 +24,10 @@ sub new {
 
     $Self->{Debug} = $Param{Debug} || 0;
 
-    # check all needed objects
+    NEEDED:
     for my $Object (qw(TicketObject ParamObject LayoutObject ConfigObject LogObject EncodeObject)) {
-        if ( !$Self->{$Object} ) {
-            $Self->{LayoutObject}->FatalError( Message => "Got no $_!" );
-        }
+        next NEEDED if $Self->{$Object};
+        $Self->{LayoutObject}->FatalError( Message => "Got no $Object!" );
     }
 
     return $Self;
