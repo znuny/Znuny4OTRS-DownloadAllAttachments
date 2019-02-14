@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <otrs_package version="1.0">
     <Name>Znuny4OTRS-DownloadAllAttachments</Name>
-    <Version>4.0.1</Version>
+    <Version>4.0.2</Version>
+    <ChangeLog Version="4.0.2" Date="2019-02-14 15:07:14 +0100">Tidied code.</ChangeLog>
     <ChangeLog Version="4.0.1" Date="2017-02-20 12:45:18 +0100">Fixed AgentTicketDownloadAllAttachments function in AgentTicketQueue view. Frameworkbug - can't use special character as name in PreMenuModule.</ChangeLog>
     <ChangeLog Version="1.1.1" Date="2015-10-19 10:10:38 UTC">Fixed bug - Bad chars in filename break some extractors.</ChangeLog>
     <Framework>4.0.x</Framework>
