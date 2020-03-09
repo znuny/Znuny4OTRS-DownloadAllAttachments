@@ -1,4 +1,6 @@
-# Mehrere Anhänge als zip Datei herunterladen
+# Funktionalität
+
+## Mehrere Anhänge als zip Datei herunterladen
 
 Im OTRS Standard ist es nicht möglich mehrere Anhänge eines Tickets oder Artikels auf einmal herunterzuladen, jeder Anhang muss einzeln heruntergeladen werden. Dieses Paket erweitert das System um die Funktionalität alle Anhänge eines Tickets oder Artikels als einzelne zip-Datei herunterzuladen.
 
