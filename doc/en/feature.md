@@ -1,4 +1,6 @@
-# Download multiple attachments as single zip file
+# Functionality
+
+## Download multiple attachments as single zip file
 
 In the OTRS standard it's not possible to download multiple ticket or article attachments at once, each file has to get downloaded single handed. This package extends the system with the functionality to download all attachments of a ticket or article as a single zip file.
 
