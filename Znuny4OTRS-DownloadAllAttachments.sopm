@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <otrs_package version="1.0">
     <Name>Znuny4OTRS-DownloadAllAttachments</Name>
-    <Version>6.0.3</Version>
+    <Version>6.0.4</Version>
+    <ChangeLog Version="6.0.4" Date="2021-02-12 17:34:53 +0100">Happy new year. Tidied code.</ChangeLog>
     <ChangeLog Version="6.0.3" Date="2020-04-07 17:57:54 +0200">Tidied code, improved documentation and README.</ChangeLog>
     <ChangeLog Version="6.0.2" Date="2019-01-25 09:50:43 +0100">Small improvements to header and sysconfig (menu items)</ChangeLog>
     <ChangeLog Version="6.0.1" Date="2017-11-14 17:58:04 +0100">Initial release 6.0.x.</ChangeLog>
