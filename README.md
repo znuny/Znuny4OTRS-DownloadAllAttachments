@@ -12,7 +12,7 @@ With this extension you will be able to download all attachments of a single art
 
 - [Znuny4OTRS-Repo](https://www.znuny.com/#!/znuny4otrs)
 
-- OTRS 6
+- Znuny LTS or OTRS 6
 
 **Installation**
 
