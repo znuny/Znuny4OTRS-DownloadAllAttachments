@@ -75,6 +75,16 @@ sub Run {
         return $LayoutObject->ErrorScreen();
     }
 
+    # Check permissions
+    my $TicketPermission = $TicketObject->TicketPermission(
+        Type     => 'ro',
+        TicketID => $TicketID,
+        UserID   => $Self->{UserID},
+    );
+    if ( !$TicketPermission ) {
+        return $LayoutObject->NoPermission( WithHeader => 'yes' );
+    }
+
     my @ArticleIDs = $ArticleObject->ArticleIndex(
         TicketID => $TicketID,
     );

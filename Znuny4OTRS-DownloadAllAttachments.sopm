@@ -16,8 +16,8 @@
     <Vendor>Znuny GmbH</Vendor>
     <URL>http://znuny.com/</URL>
     <License>GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007</License>
-    <Description Lang="en">This package contains the functionality to download all ticket or article attachments as a single zip file.</Description>
-    <Description Lang="de">Dieses Paket enthält die Funktionalität um alle Anhänge eines Tickets oder Artikels als zip-Datei herunterzuladen.</Description>
+    <Description Lang="en">Enables download of all ticket or article attachments as a single zip file.</Description>
+    <Description Lang="de">Ermöglicht den Download aller Anhänge eines Tickets oder Artikels als Zip-Datei.</Description>
     <Filelist>
         <File Permission="660" Location="Custom/Kernel/Output/HTML/Templates/Standard/ArticleAttachments.tt"/>
         <File Permission="660" Location="Kernel/Config/Files/XML/Znuny4OTRSDownloadAllAttachments.xml"/>
