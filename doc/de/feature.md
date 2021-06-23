@@ -1,7 +1,9 @@
 # Funktionalität
 
-Im OTRS Standard ist es nicht möglich mehrere Anhänge eines Tickets oder Artikels auf einmal herunterzuladen, jeder Anhang muss einzeln heruntergeladen werden. Dieses Paket erweitert das System um die Funktionalität alle Anhänge eines Tickets oder Artikels als einzelne zip-Datei herunterzuladen.
+## Mehrere Anhänge als Zip-Datei herunterladen
 
-Ticket-Anhänge können über den neuen Link 'Ticket-Anhänge herunterladen (zip)' im Ticket-Menü der Ticket-Detailansicht heruntergeladen werden. Der Dateiname entspricht dem folgenden Muster: 'Attachments Ticket *TicketNummer*.zip'.
+Dieses Paket erweitert OTRS um die Möglichkeit, alle Anhänge eines Tickets oder Artikels zusammengefasst als Zip-Datei herunterzuladen.
 
-Um alle Anhänge eines Artikels als zip-Datei herunterzuladen wurde der neue Link 'Alle herunterladen (.zip)' an die oberste Position der Artikel-Anhänge Box hinzugefügt. Der Dateiname entspricht dem folgenden Muster: 'Attachments Ticket *TicketNummer* ArticleID *ArticleID*.zip'.
+Ticket-Anhänge können über den neuen Link 'Ticket-Anhänge herunterladen' im Ticket-Menü der Ticket-Detailansicht heruntergeladen werden. Der Dateiname entspricht dem folgenden Muster: 'Attachments Ticket *TicketNummer*.zip'.
+
+Um alle Anhänge eines Artikels als Zip-Datei herunterzuladen, wurde der neue Link 'Alle herunterladen (Zip)' an die oberste Position der Artikelanhang-Box hinzugefügt. Der Dateiname entspricht dem folgenden Muster: 'Attachments Ticket *TicketNummer* ArticleID *ArticleID*.zip'.

@@ -8,7 +8,7 @@
     <ChangeLog Version="1.1.2" Date="2015-12-11 18:51:17 UTC">Tidied.</ChangeLog>
     <ChangeLog Version="1.1.1" Date="2015-10-19 10:10:38 UTC">Fixed bug - Bad chars in filename break some extractors.</ChangeLog>
     <Framework>5.0.x</Framework>
-    <PackageRequired Version="5.0.46">Znuny4OTRS-Repo</PackageRequired>
+    <PackageRequired Version="5.0.56">Znuny4OTRS-Repo</PackageRequired>
     <ModuleRequired>Archive::Zip</ModuleRequired>
     <Vendor>Znuny GmbH</Vendor>
     <URL>http://znuny.com/</URL>

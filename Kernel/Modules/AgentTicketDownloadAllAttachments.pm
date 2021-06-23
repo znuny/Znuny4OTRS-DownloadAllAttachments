@@ -1,5 +1,5 @@
 # --
-# Copyright (C) 2012-2019 Znuny GmbH, http://znuny.com/
+# Copyright (C) 2012-2021 Znuny GmbH, http://znuny.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -92,6 +92,16 @@ sub Run {
             Priority => 'error',
         );
         return $LayoutObject->ErrorScreen();
+    }
+
+    # Check permissions
+    my $TicketPermission = $TicketObject->TicketPermission(
+        Type     => 'ro',
+        TicketID => $TicketID,
+        UserID   => $Self->{UserID},
+    );
+    if ( !$TicketPermission ) {
+        return $LayoutObject->NoPermission( WithHeader => 'yes' );
     }
 
     my @ArticleIDs = $TicketObject->ArticleIndex(
