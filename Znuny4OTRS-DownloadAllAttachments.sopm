@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <otrs_package version="1.0">
     <Name>Znuny4OTRS-DownloadAllAttachments</Name>
-    <Version>5.0.2</Version>
+    <Version>5.0.3</Version>
+    <ChangeLog Version="5.0.3" Date="2021-06-23 09:35:56 +0200">Added permission check to download of attachment zip files.</ChangeLog>
     <ChangeLog Version="5.0.2" Date="2019-02-14 15:05:28 +0100">Tidied code.</ChangeLog>
     <ChangeLog Version="5.0.1" Date="2017-02-20 12:45:01 +0100">Fixed AgentTicketDownloadAllAttachments function in AgentTicketQueue view. Frameworkbug - can't use special character as name in PreMenuModule.</ChangeLog>
     <ChangeLog Version="1.2.1" Date="2015-12-11 20:18:23 UTC">initial OTRS 5 release</ChangeLog>
