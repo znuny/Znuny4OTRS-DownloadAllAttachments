@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <otrs_package version="1.0">
     <Name>Znuny-DownloadAllAttachments</Name>
-    <Version>6.0.5</Version>
+    <Version>6.1.1</Version>
+    <ChangeLog Version="6.1.1" Date="2022-01-03 16:14:13 +0100">Initial release for Znuny 6.1.</ChangeLog>
     <ChangeLog Version="6.0.5" Date="2021-06-23 09:36:19 +0200">Added permission check to download of attachment zip files.</ChangeLog>
     <ChangeLog Version="6.0.4" Date="2021-02-12 17:34:53 +0100">Happy new year. Tidied code.</ChangeLog>
     <ChangeLog Version="6.0.3" Date="2020-04-07 17:57:54 +0200">Tidied code, improved documentation and README.</ChangeLog>
@@ -25,5 +26,5 @@
         <File Permission="660" Location="Kernel/Modules/AgentTicketDownloadAllAttachments.pm"/>
         <File Permission="660" Location="Kernel/Output/HTML/TicketMenu/ZnunyDownloadAllAttachments.pm"/>
     </Filelist>
-    <PackageMerge Name="Znuny4OTRS-DownloadAllAttachments" TargetVersion="6.0.5"></PackageMerge>
+    <PackageMerge Name="Znuny4OTRS-DownloadAllAttachments" TargetVersion="6.0.5"/>
 </otrs_package>
