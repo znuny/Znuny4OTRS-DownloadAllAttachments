@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <otrs_package version="1.0">
-    <Name>Znuny4OTRS-DownloadAllAttachments</Name>
+    <Name>Znuny-DownloadAllAttachments</Name>
     <Version>6.0.5</Version>
     <ChangeLog Version="6.0.5" Date="2021-06-23 09:36:19 +0200">Added permission check to download of attachment zip files.</ChangeLog>
     <ChangeLog Version="6.0.4" Date="2021-02-12 17:34:53 +0100">Happy new year. Tidied code.</ChangeLog>
@@ -11,8 +11,7 @@
     <ChangeLog Version="1.2.1" Date="2015-12-11 20:18:23 UTC">initial OTRS 5 release</ChangeLog>
     <ChangeLog Version="1.1.2" Date="2015-12-11 18:51:17 UTC">Tidied.</ChangeLog>
     <ChangeLog Version="1.1.1" Date="2015-10-19 10:10:38 UTC">Fixed bug - Bad chars in filename break some extractors.</ChangeLog>
-    <Framework>6.0.x</Framework>
-    <PackageRequired Version="6.0.71">Znuny4OTRS-Repo</PackageRequired>
+    <Framework>6.1.x</Framework>
     <ModuleRequired>Archive::Zip</ModuleRequired>
     <Vendor>Znuny GmbH</Vendor>
     <URL>http://znuny.com/</URL>
@@ -21,9 +20,10 @@
     <Description Lang="de">Ermöglicht den Download aller Anhänge eines Tickets oder Artikels als Zip-Datei.</Description>
     <Filelist>
         <File Permission="660" Location="Custom/Kernel/Output/HTML/Templates/Standard/ArticleAttachments.tt"/>
-        <File Permission="660" Location="Kernel/Config/Files/XML/Znuny4OTRSDownloadAllAttachments.xml"/>
-        <File Permission="660" Location="Kernel/Language/de_Znuny4OTRSDownloadAllAttachments.pm"/>
+        <File Permission="660" Location="Kernel/Config/Files/XML/ZnunyDownloadAllAttachments.xml"/>
+        <File Permission="660" Location="Kernel/Language/de_ZnunyDownloadAllAttachments.pm"/>
         <File Permission="660" Location="Kernel/Modules/AgentTicketDownloadAllAttachments.pm"/>
-        <File Permission="660" Location="Kernel/Output/HTML/TicketMenu/Znuny4OTRSDownloadAllAttachments.pm"/>
+        <File Permission="660" Location="Kernel/Output/HTML/TicketMenu/ZnunyDownloadAllAttachments.pm"/>
     </Filelist>
+    <PackageMerge Name="Znuny4OTRS-DownloadAllAttachments" TargetVersion="6.0.5"></PackageMerge>
 </otrs_package>

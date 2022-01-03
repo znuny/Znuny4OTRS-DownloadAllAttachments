@@ -1,8 +1,8 @@
 # --
-# Copyright (C) 2001-2021 OTRS AG, https://otrs.com/
-# Copyright (C) 2012-2021 Znuny GmbH, http://znuny.com/
+# Copyright (C) 2001-2022 OTRS AG, https://otrs.com/
+# Copyright (C) 2012-2022 Znuny GmbH, http://znuny.com/
 # --
-# $origin: otrs - 0881a676b550d5ed65e2d422ddd3d6fd8da2841d - Kernel/Output/HTML/Templates/Standard/ArticleAttachments.tt
+# $origin: znuny - 012b2cb0daf8519ff314f751ad03b62219f63331 - Kernel/Output/HTML/Templates/Standard/ArticleAttachments.tt
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (GPL). If you
@@ -14,7 +14,7 @@
 </a>
 <div id="TicketAttachment[% Data.ArticleID | html %]" class="AttachmentData Hidden">
 # ---
-# Znuny4OTRS-DownloadAllAttachments
+# Znuny-DownloadAllAttachments
 # ---
     <div class="AttachmentElement">
         <h3 style="text-align: center;">
