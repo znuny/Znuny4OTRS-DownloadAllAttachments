@@ -1,7 +1,7 @@
 ![Znuny logo](https://www.znuny.com/assets/images/logo_small.png)
 
 
-![Build status](https://badge.proxy.znuny.com/Znuny4OTRS-DownloadAllAttachments/rel-6_2)
+![Build status](https://badge.proxy.znuny.com/Znuny4OTRS-DownloadAllAttachments/rel-6_3)
 
 Download ticket or article attachments as zip
 =================
@@ -10,11 +10,11 @@ With this extension you will be able to download all attachments of a single art
 
 **Prerequisites**
 
-- Znuny 6.2
+- Znuny 6.3
 
 **Installation**
 
-Download the [package](https://addons.znuny.com/api/addon_repos/public/2105/latest) and install it via admin interface -> package manager.
+Use the online repository or download the [package](https://addons.znuny.com/api/addon_repos/public/2223/latest) and install it via admin interface -> package manager.
 
 **Configuration**
 
@@ -22,7 +22,7 @@ No further configuration required.
 
 **Download**
 
-Download the [latest version](https://addons.znuny.com/api/addon_repos/public/2105/latest).
+Download the [latest version](https://addons.znuny.com/api/addon_repos/public/2223/latest).
 
 **Professional Support**
 
