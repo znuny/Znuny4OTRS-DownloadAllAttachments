@@ -1,5 +1,5 @@
 # --
-# Copyright (C) 2012-2022 Znuny GmbH, http://znuny.com/
+# Copyright (C) 2012-2022 Znuny GmbH, https://znuny.com/
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (AGPL). If you
@@ -216,7 +216,7 @@ sub Run {
 
     if ( open( my $ZipFH, '>', $Filename ) ) {    ##no critic
 
-        if ( $Zip->writeToFileHandle($ZipFH) != AZ_OK ) {    ## nofilter(TidyAll::Plugin::OTRS::Perl::SyntaxCheck)
+        if ( $Zip->writeToFileHandle($ZipFH) != AZ_OK ) {    ## nofilter(TidyAll::Plugin::Znuny::Perl::SyntaxCheck)
             $LayoutObject->FatalError(
                 Message => "Cant write temporary zip file '$Filename': $!!",
             );
