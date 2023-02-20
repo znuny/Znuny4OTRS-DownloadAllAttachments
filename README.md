@@ -1,7 +1,7 @@
 ![Znuny logo](https://www.znuny.com/assets/images/logo_small.png)
 
 
-![Build status](https://badge.proxy.znuny.com/Znuny4OTRS-DownloadAllAttachments/rel-6_3)
+![Build status](https://badge.proxy.znuny.com/Znuny4OTRS-DownloadAllAttachments/rel-6_5)
 
 Download ticket or article attachments as zip
 =================
@@ -10,7 +10,7 @@ With this extension you will be able to download all attachments of a single art
 
 **Prerequisites**
 
-- Znuny 6.3
+- Znuny 6.5
 
 **Installation**
 
