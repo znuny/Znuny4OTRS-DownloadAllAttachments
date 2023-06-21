@@ -22,7 +22,7 @@ No further configuration required.
 
 **Download**
 
-Download the [latest version](https://addons.znuny.com/api/addon_repos/public/2223/latest).
+Download the [latest version](https://addons.znuny.com/api/addon_repos/public/2745/latest).
 
 **Professional Support**
 
