@@ -14,7 +14,7 @@ With this extension you will be able to download all attachments of a single art
 
 **Installation**
 
-Use the online repository or download the [package](https://addons.znuny.com/api/addon_repos/public/2223/latest) and install it via admin interface -> package manager.
+Use the online repository or download the [package](https://addons.znuny.com/api/addon_repos/public/3062/latest) and install it via admin interface -> package manager.
 
 **Configuration**
 
