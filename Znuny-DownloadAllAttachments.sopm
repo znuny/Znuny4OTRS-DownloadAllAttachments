@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <otrs_package version="1.0">
     <Name>Znuny-DownloadAllAttachments</Name>
-    <Version>7.0.1</Version>
+    <Version>7.1.1</Version>
     <Framework>7.1.x</Framework>
     <ModuleRequired>Archive::Zip</ModuleRequired>
     <Vendor>Znuny GmbH</Vendor>
@@ -9,6 +9,7 @@
     <License>GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007</License>
     <Description Lang="en">Enables download of all ticket or article attachments as a single zip file.</Description>
     <Description Lang="de">Ermöglicht den Download aller Anhänge eines Tickets oder Artikels als Zip-Datei.</Description>
+    <ChangeLog Version="7.1.1" Date="2024-10-16 12:36:59 +0200">Initial release for Znuny 7.1.</ChangeLog>
     <ChangeLog Version="7.0.1" Date="2023-06-21 22:44:25 +0200">Initial release for Znuny 7.0</ChangeLog>
     <ChangeLog Version="6.5.1" Date="2023-02-20 14:01:14 +0100">Initial release for Znuny 6.5.</ChangeLog>
     <ChangeLog Version="6.4.1" Date="2022-07-27 22:18:57 +0200">initial release for Znuny 6.4</ChangeLog>
