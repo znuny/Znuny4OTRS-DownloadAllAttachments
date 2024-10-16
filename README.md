@@ -1,34 +1,25 @@
 ![Znuny logo](https://www.znuny.com/assets/images/logo_small.png)
 
 
-![Build status](https://badge.proxy.znuny.com/Znuny4OTRS-DownloadAllAttachments/rel-7_0)
+![Build status](https://badge.proxy.znuny.com/Znuny4OTRS-DownloadAllAttachments/rel-7_1)
 
-Download ticket or article attachments as zip
-=================
+Znuny-DownloadAllAttachments
+============================
 
 With this extension you will be able to download all attachments of a single article or of the whole ticket at once.
 
 **Prerequisites**
 
-- Znuny 7.0
+- Znuny 7.1
 
 **Installation**
 
-Use the online repository or download the [package](https://addons.znuny.com/api/addon_repos/public/3062/latest) and install it via admin interface -> package manager.
+Use the online repository **Znuny Open Source Add-ons** from the package manager to install the add-on. From the command line use this command: `bin/znuny.Console.pl Admin::Package::Install  https://addons.znuny.com/public/:Znuny-DownloadAllAttachments`
 
-**Configuration**
+**Commercial Support**
 
-No further configuration required.
+For this add-on and for Znuny in general visit [www.znuny.com](https://www.znuny.com). Looking forward to hear from you.
 
-**Download**
-
-Download the [latest version](https://addons.znuny.com/api/addon_repos/public/3062/latest).
-
-**Professional Support**
-
-For this add-on and for Znuny in general visit [www.znuny.com](https://www.znuny.com). Looking forward to hear from you!
-
-Enjoy!
 
 Your Znuny Team!
 
