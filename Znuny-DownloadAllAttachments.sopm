@@ -2,6 +2,13 @@
 <otrs_package version="1.0">
     <Name>Znuny-DownloadAllAttachments</Name>
     <Version>6.2.1</Version>
+    <Framework>6.2.x</Framework>
+    <ModuleRequired>Archive::Zip</ModuleRequired>
+    <Vendor>Znuny GmbH</Vendor>
+    <URL>http://znuny.com/</URL>
+    <License>GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007</License>
+    <Description Lang="en">Enables download of all ticket or article attachments as a single zip file.</Description>
+    <Description Lang="de">Ermöglicht den Download aller Anhänge eines Tickets oder Artikels als Zip-Datei.</Description>
     <ChangeLog Version="6.2.1" Date="2022-01-03 16:19:53 +0100">Initial release for Znuny 6.2.</ChangeLog>
     <ChangeLog Version="6.1.1" Date="2022-01-03 16:14:13 +0100">Initial release for Znuny 6.1.</ChangeLog>
     <ChangeLog Version="6.0.5" Date="2021-06-23 09:36:19 +0200">Added permission check to download of attachment zip files.</ChangeLog>
@@ -13,13 +20,6 @@
     <ChangeLog Version="1.2.1" Date="2015-12-11 20:18:23 UTC">initial OTRS 5 release</ChangeLog>
     <ChangeLog Version="1.1.2" Date="2015-12-11 18:51:17 UTC">Tidied.</ChangeLog>
     <ChangeLog Version="1.1.1" Date="2015-10-19 10:10:38 UTC">Fixed bug - Bad chars in filename break some extractors.</ChangeLog>
-    <Framework>6.2.x</Framework>
-    <ModuleRequired>Archive::Zip</ModuleRequired>
-    <Vendor>Znuny GmbH</Vendor>
-    <URL>http://znuny.com/</URL>
-    <License>GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007</License>
-    <Description Lang="en">Enables download of all ticket or article attachments as a single zip file.</Description>
-    <Description Lang="de">Ermöglicht den Download aller Anhänge eines Tickets oder Artikels als Zip-Datei.</Description>
     <Filelist>
         <File Permission="660" Location="Custom/Kernel/Output/HTML/Templates/Standard/ArticleAttachments.tt"/>
         <File Permission="660" Location="Kernel/Config/Files/XML/ZnunyDownloadAllAttachments.xml"/>
