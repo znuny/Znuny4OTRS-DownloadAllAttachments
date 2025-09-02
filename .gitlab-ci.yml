@@ -1,6 +1,5 @@
-image: registry.znuny.com/znuny/internal/docker-znuny-ci:6.3.1
+image: registry.znuny.com/znuny/internal/docker-znuny-ci:6.3
 
-deploy:
-  stage: deploy
-  script:
-    - sh /sync_repo.sh git@github.com:znuny/Znuny4OTRS-DownloadAllAttachments.git
+include:
+  - project: $INCLUDE_PROJECT
+    file: $INCLUDE_FILE
