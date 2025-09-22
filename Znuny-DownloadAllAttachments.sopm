@@ -9,6 +9,7 @@
     <License>GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007</License>
     <Description Lang="en">Enables download of all ticket or article attachments as a single zip file.</Description>
     <Description Lang="de">Ermöglicht den Download aller Anhänge eines Tickets oder Artikels als Zip-Datei.</Description>
+    <ChangeLog Version="7.2.1" Date="2025-09-22 09:17:25 +0200">Initial release for Znuny 7.2.</ChangeLog>
     <ChangeLog Version="7.2.1" Date="2025-09-22 09:16:06 +0200">Initial release for Znuny 7.2.</ChangeLog>
     <ChangeLog Version="7.2.1" Date="2025-09-02 07:50:58 +0200">Initial release for Znuny 7.2.</ChangeLog>
     <ChangeLog Version="7.1.1" Date="2024-10-16 12:36:59 +0200">Initial release for Znuny 7.1.</ChangeLog>
