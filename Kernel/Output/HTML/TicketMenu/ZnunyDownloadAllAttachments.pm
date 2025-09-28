@@ -118,7 +118,7 @@ sub Run {
         %Param,
         Name        => Translatable('Download Ticket Attachments'),
         Description => Translatable('Download all attachments as one zip file'),
-        Link =>
+        Link        =>
             'Action=AgentTicketDownloadAllAttachments;TicketID=[% Data.TicketID | html %];RedirectToSearch=1;[% Env("ChallengeTokenParam") | html %]',
     };
 }
