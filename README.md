@@ -1,7 +1,7 @@
 ![Znuny logo](https://www.znuny.com/assets/images/logo_small.png)
 
 
-![Build status](https://badge.proxy.znuny.com/Znuny4OTRS-DownloadAllAttachments/rel-7_2)
+![Build status](https://badge.proxy.znuny.com/Znuny4OTRS-DownloadAllAttachments/rel-7_3)
 
 Znuny-DownloadAllAttachments
 ============================
@@ -10,7 +10,7 @@ With this extension you will be able to download all attachments of a single art
 
 **Prerequisites**
 
-- Znuny 7.2
+- Znuny 7.3
 
 **Installation**
 
